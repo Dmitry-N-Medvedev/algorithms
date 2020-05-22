@@ -3,8 +3,8 @@ mod tests {
     use quickfind::*;
 
     struct ConnectedRecord {
-        left: u64,
-        right: u64,
+        left: usize,
+        right: usize,
         is_connected: bool,
     }
 
