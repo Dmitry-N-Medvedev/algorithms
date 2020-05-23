@@ -5,85 +5,78 @@ mod tests {
     struct ConnectedRecord {
         left: usize,
         right: usize,
-        is_connected: bool,
+        is_connected: Option<bool>,
     }
 
     #[test]
     fn test_quick_find() {
-        let mut quick_find = QuickFind::new(100);
-        let union_commands = [0, 5, 5, 6, 1, 2, 2, 7, 8, 3, 3, 4, 4, 9];
+        let mut quick_find = QuickFind::new(10);
+        let union_commands = [(0, 5), (5, 6), (1, 2), (2, 7), (8, 3), (3, 4), (4, 9)];
         let connected_records = vec![
             ConnectedRecord {
-                left: 5,
-                right: 6,
-                is_connected: true,
+                left: 5 as usize,
+                right: 6 as usize,
+                is_connected: Some(true),
             },
             ConnectedRecord {
-                left: 0,
-                right: 6,
-                is_connected: true,
+                left: 0 as usize,
+                right: 6 as usize,
+                is_connected: Some(true),
             },
             ConnectedRecord {
-                left: 1,
-                right: 2,
-                is_connected: true,
+                left: 1 as usize,
+                right: 2 as usize,
+                is_connected: Some(true),
             },
             ConnectedRecord {
-                left: 2,
-                right: 7,
-                is_connected: true,
+                left: 2 as usize,
+                right: 7 as usize,
+                is_connected: Some(true),
             },
             ConnectedRecord {
-                left: 1,
-                right: 7,
-                is_connected: true,
+                left: 1 as usize,
+                right: 7 as usize,
+                is_connected: Some(true),
             },
             ConnectedRecord {
-                left: 3,
-                right: 8,
-                is_connected: true,
+                left: 3 as usize,
+                right: 8 as usize,
+                is_connected: Some(true),
             },
             ConnectedRecord {
-                left: 3,
-                right: 4,
-                is_connected: true,
+                left: 3 as usize,
+                right: 4 as usize,
+                is_connected: Some(true),
             },
             ConnectedRecord {
-                left: 4,
-                right: 9,
-                is_connected: true,
+                left: 4 as usize,
+                right: 9 as usize,
+                is_connected: Some(true),
             },
             ConnectedRecord {
-                left: 3,
-                right: 9,
-                is_connected: true,
+                left: 3 as usize,
+                right: 9 as usize,
+                is_connected: Some(true),
             },
             ConnectedRecord {
-                left: 8,
-                right: 9,
-                is_connected: true,
+                left: 8 as usize,
+                right: 9 as usize,
+                is_connected: Some(true),
             },
             ConnectedRecord {
-                left: 0,
-                right: 1,
-                is_connected: false,
+                left: 0 as usize,
+                right: 1 as usize,
+                is_connected: None,
             },
             ConnectedRecord {
-                left: 7,
-                right: 8,
-                is_connected: false,
+                left: 7 as usize,
+                right: 8 as usize,
+                is_connected: None,
             },
         ];
 
-        let mut ptr = 0;
-
-        while ptr < union_commands.len() {
-            let left = union_commands[ptr];
-            let right = union_commands[ptr + 1];
-
-            quick_find.union(left, right);
-
-            ptr += 2;
+        for (left, right) in &union_commands {
+            quick_find.union(*left, *right);
         }
 
         for i in connected_records {
